@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_checkin"
+        android:title="체크인"
+        android:icon="@drawable/ic_checkin" />
+
+    <item
+        android:id="@+id/nav_timer"
+        android:title="타이머"
+        android:icon="@drawable/ic_timer" />
+
+    <item
+        android:id="@+id/nav_home"
+        android:title="홈"
+        android:icon="@drawable/ic_home" />
+
+    <item
+        android:id="@+id/nav_routine"
+        android:title="루틴"
+        android:icon="@drawable/ic_routine" />
+
+    <item
+        android:id="@+id/nav_mypage"
+        android:title="마이"
+        android:icon="@drawable/ic_mypage" />
+
+</menu>
