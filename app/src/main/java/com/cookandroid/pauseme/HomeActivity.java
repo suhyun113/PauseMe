@@ -43,8 +43,9 @@ public class HomeActivity extends AppCompatActivity {
             return loadFragment(selected);
         });
 
-        // 🔹 처음 진입 시 "홈" 탭을 선택 상태로 만들기
+        // 처음 진입 시 "홈" 탭을 선택 상태로 만들기
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
     }
 
     private boolean loadFragment(Fragment fragment) {
