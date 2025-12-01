@@ -8,9 +8,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.cookandroid.pauseme.R;
-import com.cookandroid.pauseme.HomeActivity;
 import com.cookandroid.pauseme.util.PreferenceManager;
 
 public class LoginActivity extends AppCompatActivity {
@@ -49,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, nickname + "님 환영합니다!", Toast.LENGTH_SHORT).show();
 
             // 로그인 성공 → 홈 화면(HomeActivity) 호출
-            Intent intent = new Intent(this, HomeActivity.class);
+            Intent intent = new Intent(this, com.cookandroid.pauseme.HomeActivity.class);
             startActivity(intent);
             finish();
         });
