@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/poseme_purple_light">
+
+    <TextView
+        android:id="@+id/txt_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="님, 오늘도 고생 많았어요 🌿"
+        android:textColor="@color/poseme_text_dark"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp" />
+
+    <!-- 포미 마스코트 캐릭터 -->
+    <ImageView
+        android:id="@+id/img_pomi"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/pomi"
+        android:contentDescription="@string/app_name" />
+
+</LinearLayout>
