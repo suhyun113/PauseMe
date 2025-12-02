@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FAF7FF">
+    android:background="@color/poseme_bg_soft">
 
     <LinearLayout
         android:layout_width="match_parent"
