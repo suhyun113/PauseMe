@@ -9,4 +9,5 @@
     <color name="poseme_purple_dark">#9C5FE0</color>
     <color name="poseme_text_dark">#4B365F</color>
     <color name="poseme_input_bg">#EFE6FF</color>
+    <color name="poseme_bg_soft">#F7F4FF</color>
 </resources>
