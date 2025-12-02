@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/poseme_purple_light">
+    android:background="@color/poseme_bg_soft">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="일일 체크인 페이지"
-        android:textColor="@color/poseme_text_dark"
-        android:layout_gravity="center" />
+        android:orientation="vertical"
+        android:padding="20dp">
 
-</FrameLayout>
+        <!-- 타이틀 영역 -->
+        <TextView
+            android:id="@+id/txt_checkin_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일일 체크인"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/poseme_text_dark" />
+
+        <TextView
+            android:id="@+id/txt_checkin_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="오늘 하루는 어땠는지 기록해 보세요 ✨"
+            android:textSize="14sp"
+            android:textColor="@color/poseme_text_sub"
+            android:layout_marginTop="4dp" />
+
+        <!-- 달력 카드 컴포넌트 -->
+        <include
+            android:id="@+id/include_calendar"
+            layout="@layout/view_checkin_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+
+        <!-- 오늘의 기분 카드 컴포넌트 -->
+        <include
+            android:id="@+id/include_mood"
+            layout="@layout/view_checkin_mood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>
