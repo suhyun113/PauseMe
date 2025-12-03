@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<gradient xmlns:android="http://schemas.android.com/apk/res/android"
-    android:type="linear"
-    android:startColor="#FFBEA8FF"
-    android:endColor="#FF9C5FE0"
-    android:angle="270" />
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 회복/마이페이지 헤더에 쓰는 보라 그라데이션 -->
+    <gradient
+        android:type="linear"
+        android:angle="270"
+        android:startColor="@color/poseme_purple"
+        android:endColor="@color/poseme_purple_dark" />
+
+    <corners android:radius="0dp" />
+
+</shape>

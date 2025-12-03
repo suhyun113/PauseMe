@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/poseme_surface_card"
+    android:padding="20dp">
+
+    <!-- 상단 핸들바 -->
+    <View
+        android:layout_width="48dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#DDDDDD"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/txt_donate_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="포인트 기부하기"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/poseme_text_dark" />
+
+    <TextView
+        android:id="@+id/txt_donate_point_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="보유 포인트: 1250P"
+        android:textSize="13sp"
+        android:textColor="@color/poseme_purple_dark" />
+
+    <!-- 단체 선택 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기부 단체 선택"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/poseme_text_dark"
+        android:layout_marginTop="16dp" />
+
+    <!-- 단체 카드들 -->
+    <LinearLayout
+        android:id="@+id/layout_org_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <!-- org 1 -->
+        <LinearLayout
+            android:id="@+id/card_org_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_card_solid_lavender"
+            android:padding="14dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌱"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/txt_org_1_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="청소년 마음건강센터"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/poseme_text_dark" />
+
+                <TextView
+                    android:id="@+id/txt_org_1_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="위기 청소년의 심리 상담 및 치유 프로그램 지원"
+                    android:textSize="12sp"
+                    android:textColor="@color/poseme_text_sub"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- org 2 -->
+        <LinearLayout
+            android:id="@+id/card_org_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_card_solid_lavender"
+            android:padding="14dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💚"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/txt_org_2_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="청년 멘탈케어"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/poseme_text_dark" />
+
+                <TextView
+                    android:id="@+id/txt_org_2_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20-30대 청년의 정신건강 지원 및 상담"
+                    android:textSize="12sp"
+                    android:textColor="@color/poseme_text_sub"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- org 3 -->
+        <LinearLayout
+            android:id="@+id/card_org_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_card_solid_lavender"
+            android:padding="14dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌈"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/txt_org_3_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="희망의 심리학"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/poseme_text_dark" />
+
+                <TextView
+                    android:id="@+id/txt_org_3_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="저소득층 학생 무료 심리 상담 제공"
+                    android:textSize="12sp"
+                    android:textColor="@color/poseme_text_sub"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 포인트 선택 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기부 포인트 선택"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/poseme_text_dark"
+        android:layout_marginTop="18dp" />
+
+    <LinearLayout
+        android:id="@+id/layout_point_choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/chip_point_100"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="100P"
+            android:textSize="13sp"
+            android:textColor="@color/poseme_purple_dark"
+            android:background="@drawable/bg_chip_solid_lavender" />
+
+        <TextView
+            android:id="@+id/chip_point_300"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="300P"
+            android:textSize="13sp"
+            android:textColor="@color/poseme_purple_dark"
+            android:background="@drawable/bg_chip_solid_lavender" />
+
+        <TextView
+            android:id="@+id/chip_point_500"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="500P"
+            android:textSize="13sp"
+            android:textColor="@color/poseme_purple_dark"
+            android:background="@drawable/bg_chip_solid_lavender" />
+
+        <TextView
+            android:id="@+id/chip_point_1000"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="1000P"
+            android:textSize="13sp"
+            android:textColor="@color/poseme_purple_dark"
+            android:background="@drawable/bg_chip_solid_lavender" />
+    </LinearLayout>
+
+    <!-- 안내 문구 -->
+    <TextView
+        android:id="@+id/txt_donate_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="기부할 단체와 포인트를 선택해 주세요"
+        android:textColor="@color/poseme_text_sub"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_marginTop="10dp" />
+
+    <!-- 기부 버튼 -->
+    <Button
+        android:id="@+id/btn_donate_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="14dp"
+        android:text="기부하기"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@drawable/bg_button_primary" />
+
+</LinearLayout>
