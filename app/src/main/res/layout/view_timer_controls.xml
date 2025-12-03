@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_timer_controls"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="18dp"
+    android:background="@drawable/bg_card_solid_white">
+
+    <!-- 프리셋 선택 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="집중 시간 선택"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/poseme_text_dark" />
+
+    <LinearLayout
+        android:id="@+id/layout_preset_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/btn_preset_25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="25분"
+            android:textSize="14sp"
+            android:textColor="@color/poseme_text_dark"
+            android:background="@drawable/bg_chip_solid_purple" />
+
+        <TextView
+            android:id="@+id/btn_preset_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="50분"
+            android:textSize="14sp"
+            android:textColor="@color/poseme_text_dark"
+            android:background="@drawable/bg_chip_solid_lavender"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/btn_preset_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="5분 휴식"
+            android:textSize="14sp"
+            android:textColor="@color/poseme_text_dark"
+            android:background="@drawable/bg_chip_solid_lavender" />
+    </LinearLayout>
+
+    <!-- 시작 / 리셋 버튼 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/btn_timer_start_pause"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="2"
+            android:text="시작하기"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_button_primary" />
+
+        <Space
+            android:layout_width="12dp"
+            android:layout_height="1dp" />
+
+        <Button
+            android:id="@+id/btn_timer_reset"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="리셋"
+            android:textColor="@color/poseme_text_dark"
+            android:background="@drawable/bg_card_solid_lavender" />
+    </LinearLayout>
+
+</LinearLayout>

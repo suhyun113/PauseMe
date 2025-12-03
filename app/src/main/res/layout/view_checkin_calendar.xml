@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/bg_home_main_card">
+    android:background="@drawable/bg_card_solid_white">
 
     <!-- 한 달 달력 -->
     <CalendarView
@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
+        android:padding="20dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp">
 
