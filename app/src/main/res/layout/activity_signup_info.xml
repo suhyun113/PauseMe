@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/poseme_bg_soft">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/view_topbar_back_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- 아이디 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="아이디"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/poseme_text_dark"
+                android:layout_marginTop="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/edt_user_id"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input_default"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:hint="영문/숫자 3~12자"
+                    android:inputType="text"
+                    android:textColor="@color/poseme_text_dark"
+                    android:textColorHint="@color/poseme_text_sub" />
+
+                <Button
+                    android:id="@+id/btn_check_id"
+                    android:layout_width="88dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:text="중복확인"
+                    android:textSize="13sp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/bg_button_primary" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_id_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="@color/poseme_text_sub" />
+
+            <!-- 닉네임 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/poseme_text_dark"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/edt_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_default"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:hint="2~8자 닉네임"
+                android:inputType="textPersonName"
+                android:textColor="@color/poseme_text_dark"
+                android:textColorHint="@color/poseme_text_sub" />
+
+            <!-- 비밀번호 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비밀번호"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/poseme_text_dark"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_default"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:hint="8자 이상 입력해 주세요"
+                android:inputType="textPassword"
+                android:textColor="@color/poseme_text_dark"
+                android:textColorHint="@color/poseme_text_sub" />
+
+            <EditText
+                android:id="@+id/edt_password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_default"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:hint="비밀번호 확인"
+                android:inputType="textPassword"
+                android:textColor="@color/poseme_text_dark"
+                android:textColorHint="@color/poseme_text_sub" />
+
+            <TextView
+                android:id="@+id/txt_pw_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="@color/poseme_text_sub" />
+
+            <Button
+                android:id="@+id/btn_signup_done"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="28dp"
+                android:text="완료"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:background="@drawable/bg_button_primary" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

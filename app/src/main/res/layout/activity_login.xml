@@ -71,21 +71,25 @@
             android:background="@drawable/bg_button_primary" />
 
         <!-- 회원가입 -->
-        <TextView
-            android:id="@+id/txt_signup"
+        <Button
+            android:id="@+id/btn_signup_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:text="회원가입"
             android:textSize="14sp"
+            android:background="@android:color/transparent"
             android:textColor="@color/poseme_text_sub" />
 
-        <!-- 비밀번호 찾기 (오른쪽 정렬 느낌) -->
-        <TextView
+        <!-- 비밀번호 찾기 -->
+        <Button
             android:id="@+id/txt_find_password"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="12dp"
+            android:layout_marginLeft="130dp"
+            android:background="@android:color/transparent"
             android:text="비밀번호 찾기"
             android:textSize="12sp"
             android:textColor="@color/poseme_text_sub"
