@@ -2,7 +2,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/poseme_bg_soft">
 
     <LinearLayout
@@ -11,196 +10,108 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- 닉네임 인사 영역 -->
-        <TextView
-            android:id="@+id/txt_welcome_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="포즈미님,"
-            android:textColor="@color/poseme_text_dark"
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/txt_welcome_sub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="오늘도 고생 많았어요 ✨"
-            android:textColor="@color/poseme_text_dark"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp" />
-
-        <!-- 오늘의 휴식 카드 -->
         <LinearLayout
-            android:id="@+id/layout_today_rest"
+            android:id="@+id/layout_warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_solid_white"
-            android:padding="20dp"
-            android:layout_marginTop="24dp">
-
-            <!-- 제목 + 아이콘 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/txt_today_rest_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="오늘의 휴식"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/poseme_text_dark" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_clock"
-                    app:tint="@color/poseme_purple" />
-            </LinearLayout>
-
-            <!-- 오늘 휴식 시간 숫자 -->
-            <TextView
-                android:id="@+id/txt_today_rest_minutes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="25분"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:textColor="@color/poseme_purple"
-                android:layout_marginTop="18dp"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:id="@+id/txt_today_rest_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="오늘 휴식한 시간"
-                android:textSize="14sp"
-                android:textColor="@color/poseme_text_dark"
-                android:layout_marginTop="4dp"
-                android:layout_gravity="center_horizontal" />
-
-            <!-- 로그인 페이지 버튼 스타일 재사용 -->
-            <Button
-                android:id="@+id/btn_start_rest"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:text="휴식 시작하기"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:background="@drawable/bg_button_primary" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_chip_solid_purple"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"> <TextView
+            android:id="@+id/txt_rest_warning"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🚨 휴식이 필요해요! (오늘 집중 시간 2시간 초과)"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- 이번 주 통계 카드 -->
         <LinearLayout
-            android:id="@+id/layout_week_stats"
+            android:id="@+id/layout_profile_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_solid_white"
-            android:padding="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp">
+            android:orientation="vertical">
 
-            <!-- 제목 + 아이콘 -->
+            <TextView
+                android:id="@+id/txt_welcome_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="포즈미님,"
+                android:textColor="@color/poseme_text_dark"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_welcome_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오늘도 고생 많았어요 ✨"
+                android:textColor="@color/poseme_text_sub"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_rest_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_card_solid_white"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오늘의 휴식"
+                android:textColor="@color/poseme_text_dark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="16dp"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/txt_week_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="이번 주 통계"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/poseme_text_dark" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_trending_up"
-                    app:tint="@color/poseme_purple" />
-            </LinearLayout>
-
-            <!-- 통계 작은 카드 2개 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
-
-                <!-- 휴식 횟수 -->
                 <LinearLayout
-                    android:id="@+id/layout_week_count"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/bg_card_solid_lavender"
-                    android:padding="16dp"
-                    android:layout_marginEnd="8dp">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_week_count_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="7회"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/poseme_purple" />
-
-                    <TextView
-                        android:id="@+id/txt_week_count_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="휴식 횟수"
-                        android:textSize="12sp"
-                        android:textColor="@color/poseme_text_dark"
-                        android:layout_marginTop="2dp" />
-                </LinearLayout>
-
-                <!-- 총 휴식 시간 -->
-                <LinearLayout
-                    android:id="@+id/layout_week_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/bg_card_solid_lavender"
-                    android:padding="16dp"
-                    android:layout_marginStart="8dp">
-
-                    <TextView
-                        android:id="@+id/txt_week_time_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2.5시간"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/poseme_purple" />
-
-                    <TextView
-                        android:id="@+id/txt_week_time_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="총 휴식 시간"
-                        android:textSize="12sp"
-                        android:textColor="@color/poseme_text_dark"
-                        android:layout_marginTop="2dp" />
+                        android:textColor="@color/poseme_text_sub"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/txt_today_rest_minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0분"
+                        android:textColor="@color/poseme_purple_dark"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="4dp" />
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/btn_start_rest"
+                    android:layout_width="110dp"
+                    android:layout_height="40dp"
+                    android:text="휴식 시작하기"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_button_primary" />
             </LinearLayout>
         </LinearLayout>
 

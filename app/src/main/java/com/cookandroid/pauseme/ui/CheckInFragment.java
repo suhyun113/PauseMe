@@ -61,6 +61,7 @@ public class CheckInFragment extends Fragment {
         TextView txtCalendarMonth = root.findViewById(R.id.txt_calendar_month);
 
         // 오늘 날짜 기준으로 월 타이틀 세팅
+        // NullPointerException 방지를 위해 currentCal 초기화
         currentCal = Calendar.getInstance();
         if (txtCalendarMonth != null) {
             int y = currentCal.get(Calendar.YEAR);

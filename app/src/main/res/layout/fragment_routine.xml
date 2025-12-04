@@ -7,157 +7,102 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <!-- 화면 제목 -->
-        <TextView
-            android:id="@+id/txt_routine_screen_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="회복 루틴"
-            android:textColor="@color/poseme_text_dark"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
+        <include
+            layout="@layout/view_topbar_back_title" />
 
-        <!-- 현재 컨디션 카드 -->
         <LinearLayout
-            android:id="@+id/layout_condition_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_card_solid_white"
-            android:padding="18dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/txt_condition_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="현재 컨디션"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/poseme_text_dark" />
-
-                <!-- 좋아요 아이콘은 나중에 기능 붙일 수 있음 -->
-                <TextView
-                    android:id="@+id/txt_condition_fav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="♡"
-                    android:textSize="18sp"
-                    android:textColor="@color/poseme_purple" />
-            </LinearLayout>
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
-                android:id="@+id/txt_condition_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="번아웃 위험도"
-                android:textSize="13sp"
-                android:textColor="@color/poseme_text_sub" />
+                android:text="내 상태에 맞는 회복 루틴"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/poseme_text_dark" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/txt_condition_level"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="보통"
-                    android:textSize="13sp"
-                    android:textColor="@color/poseme_purple" />
-            </LinearLayout>
-
-            <!-- 진행 바 느낌의 컨디션 바 -->
-            <ProgressBar
-                android:id="@+id/progress_condition"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="10dp"
-                android:progress="50"
-                android:max="100"
-                android:progressDrawable="@drawable/bg_progress_condition" />
-
-            <TextView
-                android:id="@+id/txt_condition_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="적당한 피로감이 느껴지네요. 가볍게 회복해봐요 ✨"
+                android:text="지금 당신의 기분에 따라 추천하는 활동이에요."
                 android:textSize="13sp"
                 android:textColor="@color/poseme_text_sub" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:id="@+id/card_breathing_routine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_card_solid_white"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🧘 호흡 명상 (5분)"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/poseme_text_dark" />
+
+                    <Button
+                        android:id="@+id/btn_start_routine_breathing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="루틴 시작"
+                        android:background="@drawable/bg_button_primary"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_card_solid_white"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🤸🏻‍♀️ 목/어깨 스트레칭 (10분)"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/poseme_text_dark" />
+
+                    <Button
+                        android:id="@+id/btn_start_routine_stretching"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="루틴 시작"
+                        android:background="@drawable/bg_button_primary"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/temp_routine_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="[TEST] 루틴 완료 및 포인트 적립"
+                    android:background="@color/poseme_purple"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
         </LinearLayout>
-
-        <!-- 섹션: 지금 당신에게 추천해요 -->
-        <TextView
-            android:id="@+id/txt_section_recommend_now"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지금 당신에게 추천해요"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/poseme_text_dark"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp" />
-
-        <!-- 추천 루틴 카드 2개 -->
-        <LinearLayout
-            android:id="@+id/layout_recommend_now"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/card_routine_calm_breath"
-                layout="@layout/view_routine_card" />
-
-            <include
-                android:id="@+id/card_routine_eye_relax"
-                layout="@layout/view_routine_card"
-                android:layout_marginTop="12dp" />
-        </LinearLayout>
-
-        <!-- 섹션: 모든 회복 루틴 -->
-        <TextView
-            android:id="@+id/txt_section_all_routines"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="모든 회복 루틴"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/poseme_text_dark"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp" />
-
-        <LinearLayout
-            android:id="@+id/layout_all_routines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/card_routine_stretch"
-                layout="@layout/view_routine_card" />
-
-            <include
-                android:id="@+id/card_routine_head_massage"
-                layout="@layout/view_routine_card"
-                android:layout_marginTop="12dp" />
-        </LinearLayout>
-
     </LinearLayout>
 </ScrollView>
