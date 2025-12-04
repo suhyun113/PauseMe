@@ -19,10 +19,16 @@
     <CalendarView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+
+        android:layout_height="wrap_content"
+
         android:layout_marginTop="8dp"
-        android:focusedMonthDateColor="@color/poseme_text_dark"
-        android:unfocusedMonthDateColor="@color/poseme_text_dark"
+
+        android:weekDayTextAppearance="@style/CalendarTextStyle"
+        android:dateTextAppearance="@style/CalendarTextStyle"
+
+        android:focusedMonthDateColor="@color/poseme_purple_dark"
+        android:unfocusedMonthDateColor="@color/poseme_text_sub"
         android:weekSeparatorLineColor="@android:color/transparent"
         android:showWeekNumber="false" />
 

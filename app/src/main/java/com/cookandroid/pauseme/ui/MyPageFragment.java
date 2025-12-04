@@ -5,6 +5,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -145,7 +146,6 @@ public class MyPageFragment extends Fragment {
     }
 
     /** 닉네임 수정 다이얼로그 */
-    /** 닉네임 수정 모달 디자인 적용 */
     private void showNicknameEditDialog() {
         if (getContext() == null) return;
 
@@ -163,9 +163,10 @@ public class MyPageFragment extends Fragment {
         Button btnCancel = dialogView.findViewById(R.id.btn_cancel_nickname_edit);
         Button btnSave = dialogView.findViewById(R.id.btn_save_nickname_edit);
 
-        // 현재 닉네임으로 힌트/텍스트 설정 (선택 사항)
+        // 현재 닉네임으로 텍스트 설정
         String currentName = txtProfileName.getText().toString().replace("님", "").trim();
         editNewNickname.setText(currentName);
+        editNewNickname.setSelection(editNewNickname.getText().length());
 
         // 취소 버튼 리스너
         btnCancel.setOnClickListener(v -> dialog.dismiss());
@@ -180,11 +181,6 @@ public class MyPageFragment extends Fragment {
                 Toast.makeText(getContext(), "닉네임을 입력해 주세요.", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // 다이얼로그 배경을 투명하게 설정 (선택 사항, 커스텀 디자인에 유리)
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        }
 
         dialog.show();
     }
