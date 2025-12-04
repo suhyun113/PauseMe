@@ -4,20 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/bg_card_solid_white">
+    android:background="@drawable/bg_card_solid_white"
+    android:padding="16dp">
 
+    <!-- 연/월 제목 (원하면 숨겨도 됨) -->
+    <TextView
+        android:id="@+id/txt_calendar_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2024년 12월"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/poseme_text_dark" />
+
+    <!-- 한 달 달력 -->
     <CalendarView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="320dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:weekDayTextAppearance="@android:style/TextAppearance.Small"
         android:dateTextAppearance="@android:style/TextAppearance.Small"
         android:focusedMonthDateColor="@color/poseme_text_dark"
         android:unfocusedMonthDateColor="@color/poseme_text_sub"
-        android:weekSeparatorLineColor="@android:color/transparent" />
+        android:weekSeparatorLineColor="@android:color/transparent"
+        android:showWeekNumber="false" />
 
-    <!-- 범례 부분 그대로 -->
-    ...
 </LinearLayout>

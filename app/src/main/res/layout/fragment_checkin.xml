@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- 상단바 (txt_title, btn_back 포함) -->
+        <!-- 상단바(공통) -->
         <include
             layout="@layout/view_topbar_back_title" />
 
@@ -19,13 +19,13 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- 인삿말 -->
+            <!-- 오늘의 기분 안내 -->
             <TextView
                 android:id="@+id/txt_checkin_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="오늘의 기분은 어땠나요?"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/poseme_text_dark" />
 
@@ -33,10 +33,10 @@
                 android:id="@+id/txt_checkin_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="달력에서 날짜를 눌러 오늘의 기분을 기록해 보세요 ✨"
-                android:textSize="14sp"
-                android:textColor="@color/poseme_text_sub"
-                android:layout_marginTop="4dp" />
+                android:textSize="13sp"
+                android:textColor="@color/poseme_text_sub" />
 
             <!-- 달력 카드 -->
             <include
@@ -44,7 +44,15 @@
                 layout="@layout/view_checkin_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="16dp" />
+
+            <!-- 선택한 날짜의 기분 카드 -->
+            <include
+                android:id="@+id/include_today_mood"
+                layout="@layout/view_checkin_today_mood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
 
             <!-- 이번 달 통계 카드 -->
             <include

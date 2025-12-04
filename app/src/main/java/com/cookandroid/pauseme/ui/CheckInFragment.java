@@ -1,5 +1,6 @@
 package com.cookandroid.pauseme.ui;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.os.Bundle;
 
 import com.cookandroid.pauseme.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -33,8 +32,13 @@ public class CheckInFragment extends Fragment {
     private CalendarView calendarView;
     private Calendar currentCal;
 
+    // 통계
     private TextView txtMonthDays;
     private TextView txtMonthTopMood;
+
+    // 선택한 날짜 카드
+    private TextView txtSelectedDate;
+    private TextView txtSelectedMood;
 
     private static final String DB_ROOT_MOODS = "moods";
 
@@ -52,17 +56,32 @@ public class CheckInFragment extends Fragment {
         ImageButton btnBack = root.findViewById(R.id.btn_back);
         if (btnBack != null) btnBack.setVisibility(View.GONE);
 
+        // 달력 뷰
         calendarView = root.findViewById(R.id.calendar_view);
-        txtMonthDays = root.findViewById(R.id.txt_month_checkin_days);
+        TextView txtCalendarMonth = root.findViewById(R.id.txt_calendar_month);
+
+        // 오늘 날짜 기준으로 월 타이틀 세팅
+        currentCal = Calendar.getInstance();
+        if (txtCalendarMonth != null) {
+            int y = currentCal.get(Calendar.YEAR);
+            int m = currentCal.get(Calendar.MONTH) + 1;
+            txtCalendarMonth.setText(String.format(Locale.getDefault(), "%d년 %d월", y, m));
+        }
+
+        // 선택 날짜 카드
+        txtSelectedDate = root.findViewById(R.id.txt_selected_date);
+        txtSelectedMood = root.findViewById(R.id.txt_selected_mood);
+
+        // 이번 달 통계
+        txtMonthDays    = root.findViewById(R.id.txt_month_checkin_days);
         txtMonthTopMood = root.findViewById(R.id.txt_month_top_mood);
 
-        // 오늘 기준으로 초기 월 통계 로딩 (calendarView.getDate() 안 씀!)
-        currentCal = Calendar.getInstance();
+        // 초기: 오늘 기준 월 통계 로딩
         int initYear  = currentCal.get(Calendar.YEAR);
         int initMonth = currentCal.get(Calendar.MONTH) + 1;
         loadMonthStats(initYear, initMonth);
 
-        // 달력 날짜 선택 리스너 (null 체크)
+        // 달력 날짜 선택
         if (calendarView != null) {
             calendarView.setOnDateChangeListener(
                     new CalendarView.OnDateChangeListener() {
@@ -72,7 +91,20 @@ public class CheckInFragment extends Fragment {
                             int realMonth = month + 1;
                             currentCal.set(year, month, dayOfMonth);
 
+                            // 월 타이틀 변경
+                            if (txtCalendarMonth != null) {
+                                txtCalendarMonth.setText(
+                                        String.format(Locale.getDefault(),
+                                                "%d년 %d월", year, realMonth));
+                            }
+
+                            // 선택한 날짜의 기존 기분 불러오기
+                            loadDayMood(year, realMonth, dayOfMonth);
+
+                            // 바텀시트로 기분 선택
                             showMoodBottomSheet(year, realMonth, dayOfMonth);
+
+                            // 이번 달 통계 갱신
                             loadMonthStats(year, realMonth);
                         }
                     }
@@ -82,12 +114,14 @@ public class CheckInFragment extends Fragment {
         return root;
     }
 
+    /** 날짜 클릭 시 기분 선택 바텀시트 */
     private void showMoodBottomSheet(int year, int month, int day) {
         if (getContext() == null) return;
 
-        BottomSheetDialog dialog =
-                new BottomSheetDialog(requireContext(),
-                        com.google.android.material.R.style.Theme_Design_Light_BottomSheetDialog);
+        BottomSheetDialog dialog = new BottomSheetDialog(
+                requireContext(),
+                com.google.android.material.R.style.Theme_Design_Light_BottomSheetDialog
+        );
 
         View sheet = LayoutInflater.from(getContext())
                 .inflate(R.layout.bottomsheet_mood_select, null);
@@ -132,6 +166,7 @@ public class CheckInFragment extends Fragment {
         dialog.show();
     }
 
+    /** 선택한 날짜 기분 저장 */
     private void saveMood(int year, int month, int day, int moodCode) {
         if (getContext() == null) return;
 
@@ -155,6 +190,9 @@ public class CheckInFragment extends Fragment {
                 Toast.makeText(getContext(),
                         month + "월 " + day + "일의 기분이 기록되었어요.",
                         Toast.LENGTH_SHORT).show();
+
+                // 선택 카드 / 통계 갱신
+                updateSelectedDayUI(year, month, day, moodCode);
                 loadMonthStats(year, month);
             } else {
                 Toast.makeText(getContext(),
@@ -164,6 +202,54 @@ public class CheckInFragment extends Fragment {
         });
     }
 
+    /** 특정 날짜의 기존 기분 로딩 → 카드에 반영 */
+    private void loadDayMood(int year, int month, int day) {
+        if (getContext() == null) return;
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+
+        String ymKey  = String.format(Locale.getDefault(), "%04d-%02d", year, month);
+        String dayKey = String.format(Locale.getDefault(), "%02d", day);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference(DB_ROOT_MOODS)
+                .child(user.getUid())
+                .child(ymKey)
+                .child(dayKey);
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Long val = snapshot.getValue(Long.class);
+                if (val == null) {
+                    updateSelectedDayUI(year, month, day, -1);
+                } else {
+                    updateSelectedDayUI(year, month, day, val.intValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+
+    /** 선택한 날짜 카드 UI */
+    private void updateSelectedDayUI(int year, int month, int day, int moodCode) {
+        if (txtSelectedDate == null || txtSelectedMood == null) return;
+
+        String dateText = String.format(Locale.getDefault(),
+                "%d년 %d월 %d일", year, month, day);
+        txtSelectedDate.setText(dateText);
+
+        if (moodCode <= 0) {
+            txtSelectedMood.setText("기록 없음");
+        } else {
+            txtSelectedMood.setText(getMoodEmoji(moodCode));
+        }
+    }
+
+    /** 월 통계 로딩 */
     private void loadMonthStats(int year, int month) {
         if (txtMonthDays == null || txtMonthTopMood == null) return;
 
@@ -212,6 +298,7 @@ public class CheckInFragment extends Fragment {
         });
     }
 
+    /** moodCode → 이모지 */
     private String getMoodEmoji(int code) {
         switch (code) {
             case 1: return "😊";

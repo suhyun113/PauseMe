@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_today_mood_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card_solid_white"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txt_today_mood_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="선택한 날짜의 기분"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/poseme_text_dark" />
+
+    <TextView
+        android:id="@+id/txt_today_mood_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="달력에서 날짜를 눌러 기분을 선택해 보세요."
+        android:textSize="13sp"
+        android:textColor="@color/poseme_text_sub" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_input_default"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- 선택된 날짜 -->
+        <TextView
+            android:id="@+id/txt_selected_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜가 선택되지 않았어요"
+            android:textSize="14sp"
+            android:textColor="@color/poseme_text_sub" />
+
+        <!-- 선택된 기분 이모지 -->
+        <TextView
+            android:id="@+id/txt_selected_mood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="🙂"
+            android:textSize="32sp"
+            android:textColor="@color/poseme_text_dark" />
+
+    </LinearLayout>
+
+</LinearLayout>
