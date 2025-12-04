@@ -6,23 +6,22 @@
     android:padding="24dp"
     android:background="@color/poseme_surface_card">
 
-    <!-- 상단 핸들바 -->
     <View
-        android:layout_width="48dp"
-        android:layout_height="4dp"
-        android:layout_gravity="center_horizontal"
-        android:background="#DDDDDD"
-        android:layout_marginBottom="16dp" />
+    android:layout_width="48dp"
+    android:layout_height="4dp"
+    android:layout_gravity="center_horizontal"
+    android:background="#DDDDDD"
+    android:layout_marginBottom="16dp" />
 
     <TextView
-    android:id="@+id/txt_player_title"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="🧘 호흡 명상 (3분)"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    android:textColor="@color/poseme_text_dark"
-    android:layout_marginBottom="20dp" />
+        android:id="@+id/txt_player_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🧘 호흡 명상 (3분)"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/poseme_text_dark"
+        android:layout_marginBottom="20dp" />
 
     <TextView
         android:id="@+id/txt_routine_step"
@@ -31,7 +30,7 @@
         android:minHeight="120dp"
         android:background="@drawable/bg_input_default"
         android:padding="16dp"
-        android:text="1단계: 편안하게 앉아 눈을 감으세요. (1분)"
+        android:text="1단계: 루틴 설명을 로드 중입니다."
         android:textSize="16sp"
         android:textColor="@color/poseme_text_dark"
         android:gravity="center"
