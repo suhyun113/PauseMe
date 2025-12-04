@@ -51,7 +51,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🧘 호흡 명상 (5분)"
+                        android:text="🧘 호흡 명상 (3분)"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/poseme_text_dark" />
@@ -77,7 +77,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🤸🏻‍♀️ 목/어깨 스트레칭 (10분)"
+                        android:text="🤸🏻‍♀️ 목/어깨 스트레칭 (3분)"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/poseme_text_dark" />
@@ -92,14 +92,57 @@
                         android:textColor="@color/white" />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/temp_routine_button"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="[TEST] 루틴 완료 및 포인트 적립"
-                    android:background="@color/poseme_purple"
-                    android:textColor="@color/white" />
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_card_solid_white"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="😴 5분 낮잠 (3분)"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/poseme_text_dark" />
+
+                    <Button
+                        android:id="@+id/btn_start_routine_quick_nap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="루틴 시작"
+                        android:background="@drawable/bg_button_primary"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_card_solid_white"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌳 명상 산책 (3분)"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/poseme_text_dark" />
+
+                    <Button
+                        android:id="@+id/btn_start_routine_mindful_walk"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="루틴 시작"
+                        android:background="@drawable/bg_button_primary"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
             </LinearLayout>
 
