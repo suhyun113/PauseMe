@@ -1,7 +1,9 @@
 package com.cookandroid.pauseme;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,12 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -37,16 +35,47 @@ public class SignUpActivity extends AppCompatActivity {
         ImageButton btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(v -> finish());
 
-        edtEmail = findViewById(R.id.edt_email);
+        edtEmail   = findViewById(R.id.edt_email);
         edtPassword = findViewById(R.id.edt_password);
-        btnSignup = findViewById(R.id.btn_signup);
+        btnSignup  = findViewById(R.id.btn_signup);
+
+        // 초기 비활성화
+        setButtonEnabled(btnSignup, false);
+
+        TextWatcher watcher = new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                String email = edtEmail.getText().toString().trim();
+                String pw    = edtPassword.getText().toString().trim();
+
+                boolean ok = !TextUtils.isEmpty(email)
+                        && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                        && pw.length() >= 8;
+
+                setButtonEnabled(btnSignup, ok);
+            }
+        };
+        edtEmail.addTextChangedListener(watcher);
+        edtPassword.addTextChangedListener(watcher);
 
         btnSignup.setOnClickListener(v -> doSignup());
     }
 
+    private void setButtonEnabled(Button button, boolean enabled) {
+        button.setEnabled(enabled);
+        if (enabled) {
+            button.setBackgroundResource(R.drawable.bg_button_primary_dark);
+        } else {
+            button.setBackgroundResource(R.drawable.bg_button_primary);
+        }
+        button.setTextColor(getResources().getColor(android.R.color.white));
+    }
+
     private void doSignup() {
         String email = edtEmail.getText().toString().trim();
-        String pw = edtPassword.getText().toString().trim();
+        String pw    = edtPassword.getText().toString().trim();
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "올바른 이메일을 입력하세요", Toast.LENGTH_SHORT).show();
@@ -61,15 +90,13 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, pw)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-
-                        // 이메일 인증 메일 발송
-                        mAuth.getCurrentUser().sendEmailVerification();
-
+                        if (mAuth.getCurrentUser() != null) {
+                            mAuth.getCurrentUser().sendEmailVerification();
+                        }
                         Toast.makeText(SignUpActivity.this,
                                 "인증 이메일이 전송되었습니다. 메일을 확인해 주세요!",
                                 Toast.LENGTH_LONG).show();
-
-                        finish(); // 로그인 화면으로 이동
+                        finish(); // 로그인 화면으로 돌아감
                     } else {
                         String msg = task.getException() != null
                                 ? task.getException().getMessage()
