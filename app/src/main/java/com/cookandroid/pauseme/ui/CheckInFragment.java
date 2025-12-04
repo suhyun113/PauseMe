@@ -31,6 +31,7 @@ public class CheckInFragment extends Fragment {
 
     private CalendarView calendarView;
     private Calendar currentCal;
+    private TextView txtCalendarMonth; // 월 표시 TextView 멤버 변수 추가
 
     // 통계
     private TextView txtMonthDays;
@@ -56,12 +57,10 @@ public class CheckInFragment extends Fragment {
         ImageButton btnBack = root.findViewById(R.id.btn_back);
         if (btnBack != null) btnBack.setVisibility(View.GONE);
 
-        // 달력 뷰
+        // 달력 뷰 및 외부 UI 연결
         calendarView = root.findViewById(R.id.calendar_view);
-        TextView txtCalendarMonth = root.findViewById(R.id.txt_calendar_month);
 
-        // 오늘 날짜 기준으로 월 타이틀 세팅
-        // NullPointerException 방지를 위해 currentCal 초기화
+        // 오늘 날짜 기준으로 월 타이틀 초기 세팅
         currentCal = Calendar.getInstance();
         if (txtCalendarMonth != null) {
             int y = currentCal.get(Calendar.YEAR);
@@ -92,7 +91,7 @@ public class CheckInFragment extends Fragment {
                             int realMonth = month + 1;
                             currentCal.set(year, month, dayOfMonth);
 
-                            // 월 타이틀 변경
+                            // 월 타이틀 변경 (외부 TextView 업데이트)
                             if (txtCalendarMonth != null) {
                                 txtCalendarMonth.setText(
                                         String.format(Locale.getDefault(),
@@ -113,6 +112,27 @@ public class CheckInFragment extends Fragment {
         }
 
         return root;
+    }
+
+    /** 월을 변경하고 CalendarView와 UI를 업데이트하는 메서드 */
+    private void changeMonth(int offset) {
+        if (currentCal == null) return;
+
+        // 현재 월을 offset만큼 변경
+        currentCal.add(Calendar.MONTH, offset);
+
+        // CalendarView에 새 날짜 설정 (CalendarView가 새 월을 보여주도록 함)
+        calendarView.setDate(currentCal.getTimeInMillis());
+
+        // 월 타이틀 업데이트
+        if (txtCalendarMonth != null) {
+            int y = currentCal.get(Calendar.YEAR);
+            int m = currentCal.get(Calendar.MONTH) + 1;
+            txtCalendarMonth.setText(String.format(Locale.getDefault(), "%d년 %d월", y, m));
+        }
+
+        // 통계 갱신
+        loadMonthStats(currentCal.get(Calendar.YEAR), currentCal.get(Calendar.MONTH) + 1);
     }
 
     /** 날짜 클릭 시 기분 선택 바텀시트 */

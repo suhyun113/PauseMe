@@ -10,4 +10,11 @@
     <style name="CalendarTextStyle" parent="android:TextAppearance.Small">
         <item name="android:textColor">@color/poseme_text_dark</item>
     </style>
+    <style name="CalendarViewTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:headerMonthTextAppearance">@style/InvisibleText</item>
+    </style>
+
+    <style name="InvisibleText" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
 </resources>

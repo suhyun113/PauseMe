@@ -7,29 +7,18 @@
     android:background="@drawable/bg_card_solid_white"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/txt_calendar_month"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2024년 12월"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/poseme_text_dark" />
-
+    <!-- CalendarView -->
     <CalendarView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
-
-        android:layout_marginTop="8dp"
+        android:theme="@style/CalendarViewTheme"
 
         android:weekDayTextAppearance="@style/CalendarTextStyle"
         android:dateTextAppearance="@style/CalendarTextStyle"
 
-        android:focusedMonthDateColor="@color/poseme_purple_dark"
-        android:unfocusedMonthDateColor="@color/poseme_text_sub"
+        android:focusedMonthDateColor="@color/poseme_text_dark"
+        android:unfocusedMonthDateColor="@color/poseme_text_dark"
         android:weekSeparatorLineColor="@android:color/transparent"
         android:showWeekNumber="false" />
-
 </LinearLayout>
