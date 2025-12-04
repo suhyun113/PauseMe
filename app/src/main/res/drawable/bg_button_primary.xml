@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 메인 액션 버튼 색 -->
     <solid android:color="@color/poseme_purple" />
-    <corners android:radius="12dp" />
+    <corners android:radius="8dp" />
 </shape>
