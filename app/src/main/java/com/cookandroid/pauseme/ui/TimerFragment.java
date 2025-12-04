@@ -119,7 +119,7 @@ public class TimerFragment extends Fragment {
     private void setupPresetButtons() {
         btnPreset25.setOnClickListener(v -> {
             if (timerListener.isTimerRunning() || timerListener.isTimerPaused()) return;
-            selectedDurationMillis = 1 * 60 * 1000;
+            selectedDurationMillis = 25 * 60 * 1000;
             isRestMode = false;
             timerListener.resetTimer(); // Activity에 reset 요청
             updateTimeText(selectedDurationMillis);

@@ -5,7 +5,6 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -41,18 +40,19 @@ import java.util.Map;
 public class MyPageFragment extends Fragment {
 
     private TextView txtProfileName;
-    private TextView txtProfileSubtitle; // 이메일 표시용
+    private TextView txtProfileSubtitle;
     private TextView txtPointValue;
     private ImageButton btnEditNickname;
     private LinearLayout layoutDonateHistoryContainer;
     private ProgressBar progressMonthCheckin;
     private TextView txtMonthCheckinCount;
+    private TextView txtNoHistory;
 
     // Firebase 경로 상수
     private static final String DB_ROOT_USER_POINTS = "user_points";
     private static final String DB_ROOT_DONATION_HISTORY = "donation_history";
     private static final String DB_ROOT_NICKNAME = "nickname";
-    private static final String DB_ROOT_MOODS = "moods"; // 체크인 데이터
+    private static final String DB_ROOT_MOODS = "moods";
 
     @Nullable
     @Override
@@ -70,6 +70,7 @@ public class MyPageFragment extends Fragment {
         layoutDonateHistoryContainer = root.findViewById(R.id.layout_donate_history_container);
         txtMonthCheckinCount = root.findViewById(R.id.txt_month_checkin_count);
         progressMonthCheckin = root.findViewById(R.id.progress_month_checkin);
+        txtNoHistory = root.findViewById(R.id.txt_no_history);
 
         Button btnOpenDonate = root.findViewById(R.id.btn_open_donate);
 
@@ -82,7 +83,8 @@ public class MyPageFragment extends Fragment {
         if (btnOpenDonate != null) {
             btnOpenDonate.setOnClickListener(v -> {
                 try {
-                    int currentPoint = Integer.parseInt(txtPointValue.getText().toString().replace("P", "").replace(",", "").trim());
+                    String pointText = txtPointValue.getText().toString().replace("P", "").replace(",", "").trim();
+                    int currentPoint = Integer.parseInt(pointText);
                     showDonateBottomSheet(currentPoint);
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "포인트 로드 중 오류 발생", Toast.LENGTH_SHORT).show();
@@ -117,7 +119,9 @@ public class MyPageFragment extends Fragment {
         // TODO: txtImpactPointValue, txtImpactPeopleValue 등 나머지 통계 로드 함수도 구현 필요
     }
 
-    /** 닉네임 로딩 (없으면 이메일 사용) */
+    /**
+     * 닉네임 로딩 (없으면 이메일 사용)
+     */
     private void loadNickname(String uid, String email) {
         DatabaseReference nicknameRef = FirebaseDatabase.getInstance()
                 .getReference("users").child(uid).child(DB_ROOT_NICKNAME);
@@ -131,7 +135,6 @@ public class MyPageFragment extends Fragment {
                 if (nickname != null && !nickname.isEmpty()) {
                     txtProfileName.setText(nickname + "님");
                 } else {
-                    // 닉네임이 없으면 이메일 앞부분 사용
                     String defaultName = email != null && email.contains("@") ? email.substring(0, email.indexOf("@")) : "사용자";
                     txtProfileName.setText(defaultName + "님");
                 }
@@ -139,39 +142,35 @@ public class MyPageFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // 오류 발생 시 기본값 사용
                 txtProfileName.setText("사용자님");
             }
         });
     }
 
-    /** 닉네임 수정 다이얼로그 */
+    /**
+     * 닉네임 수정 다이얼로그
+     */
     private void showNicknameEditDialog() {
         if (getContext() == null) return;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        // dialog_edit_nickname.xml 레이아웃 인플레이트
         View dialogView = inflater.inflate(R.layout.dialog_edit_nickname, null);
         builder.setView(dialogView);
 
         final AlertDialog dialog = builder.create();
 
-        // 뷰 찾기
         final EditText editNewNickname = dialogView.findViewById(R.id.edit_new_nickname);
         Button btnCancel = dialogView.findViewById(R.id.btn_cancel_nickname_edit);
         Button btnSave = dialogView.findViewById(R.id.btn_save_nickname_edit);
 
-        // 현재 닉네임으로 텍스트 설정
         String currentName = txtProfileName.getText().toString().replace("님", "").trim();
         editNewNickname.setText(currentName);
         editNewNickname.setSelection(editNewNickname.getText().length());
 
-        // 취소 버튼 리스너
         btnCancel.setOnClickListener(v -> dialog.dismiss());
 
-        // 저장 버튼 리스너
         btnSave.setOnClickListener(v -> {
             String newNickname = editNewNickname.getText().toString().trim();
             if (!newNickname.isEmpty()) {
@@ -182,10 +181,16 @@ public class MyPageFragment extends Fragment {
             }
         });
 
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
         dialog.show();
     }
 
-    /** Firebase에 닉네임 저장 */
+    /**
+     * Firebase에 닉네임 저장
+     */
     private void saveNickname(String nickname) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null || getContext() == null) return;
@@ -203,12 +208,14 @@ public class MyPageFragment extends Fragment {
         });
     }
 
-    /** 사용자 포인트 로딩 */
+    /**
+     * 사용자 포인트 로딩
+     */
     private void loadPoints(String uid) {
         DatabaseReference pointRef = FirebaseDatabase.getInstance()
                 .getReference("users").child(uid).child(DB_ROOT_USER_POINTS);
 
-        pointRef.addValueEventListener(new ValueEventListener() { // 실시간 갱신을 위해 addValueEventListener 사용
+        pointRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Long points = snapshot.getValue(Long.class);
@@ -224,10 +231,11 @@ public class MyPageFragment extends Fragment {
         });
     }
 
-    /** 기부 내역 로딩 및 UI 생성 */
+    /**
+     * 기부 내역 로딩 및 UI 생성
+     */
     private void loadDonationHistory(String uid) {
         if (layoutDonateHistoryContainer == null) return;
-        layoutDonateHistoryContainer.removeAllViews(); // 기존 뷰 제거
 
         DatabaseReference historyRef = FirebaseDatabase.getInstance()
                 .getReference("users").child(uid).child(DB_ROOT_DONATION_HISTORY);
@@ -235,18 +243,26 @@ public class MyPageFragment extends Fragment {
         historyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // UI 갱신 준비
+                layoutDonateHistoryContainer.removeAllViews();
+
                 List<DonationRecord> historyList = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    // 키가 타임스탬프이고 값이 맵 형태라고 가정
                     Map<String, Object> map = (Map<String, Object>) child.getValue();
                     if (map != null) {
                         historyList.add(new DonationRecord(map));
                     }
                 }
 
-                // 최신순 정렬
+                // 기부 내역 없음 메시지 처리
+                if (txtNoHistory != null) {
+                    txtNoHistory.setVisibility(historyList.isEmpty() ? View.VISIBLE : View.GONE);
+                }
+
+                // 최신순 정렬 (timestamp 기준)
                 Collections.sort(historyList, (r1, r2) -> Long.compare(r2.timestamp, r1.timestamp));
 
+                // UI 동적 추가
                 for (DonationRecord record : historyList) {
                     addHistoryItemToUI(record);
                 }
@@ -259,22 +275,23 @@ public class MyPageFragment extends Fragment {
         });
     }
 
-    /** 기부 내역 UI 아이템 동적 추가 (fragment_mypage.xml의 기존 레이아웃 구조 활용) */
+    /**
+     * 기부 내역 UI 아이템 동적 추가
+     */
     private void addHistoryItemToUI(DonationRecord record) {
         if (getContext() == null || layoutDonateHistoryContainer == null) return;
 
-        // item_donate_history.xml 레이아웃을 사용한다고 가정하고, 여기서는 LinearLayout을 동적으로 생성
+        // 동적 레이아웃 생성
         LinearLayout itemLayout = new LinearLayout(getContext());
         itemLayout.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         itemLayout.setOrientation(LinearLayout.HORIZONTAL);
         itemLayout.setGravity(android.view.Gravity.CENTER_VERTICAL);
-        itemLayout.setBackgroundResource(R.drawable.bg_card_solid_lavender); // 가정된 배경
+        itemLayout.setBackgroundResource(R.drawable.bg_card_solid_lavender);
         itemLayout.setPadding(14, 14, 14, 14);
 
-        // 마진 추가
-        if (layoutDonateHistoryContainer.getChildCount() > 0) {
+        if (layoutDonateHistoryContainer.getChildCount() > 0 && layoutDonateHistoryContainer.getChildAt(0) != txtNoHistory) {
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) itemLayout.getLayoutParams();
             lp.topMargin = 10;
         }
@@ -332,20 +349,22 @@ public class MyPageFragment extends Fragment {
         }
     }
 
-    /** 월별 체크인 횟수 로딩 */
+    /**
+     * 월별 체크인 횟수 로딩
+     */
     private void loadMonthlyCheckinCount(String uid) {
         SimpleDateFormat ymFormat = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
         String currentMonthKey = ymFormat.format(Calendar.getInstance().getTime());
 
         DatabaseReference checkinRef = FirebaseDatabase.getInstance()
-                .getReference(DB_ROOT_MOODS) // moods/<uid>/YYYY-MM 구조 사용
+                .getReference(DB_ROOT_MOODS)
                 .child(uid)
                 .child(currentMonthKey);
 
         checkinRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                long checkinDays = snapshot.getChildrenCount(); // YYYY-MM 아래의 자식 노드(DD) 개수 = 체크인 일수
+                long checkinDays = snapshot.getChildrenCount();
 
                 int totalDaysInMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
 
@@ -364,40 +383,96 @@ public class MyPageFragment extends Fragment {
         });
     }
 
-    /** 기부 바텀시트 로직 */
+    /**
+     * 기부 바텀시트 로직
+     */
     private void showDonateBottomSheet(int currentPoint) {
         if (getContext() == null) return;
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
         View sheet = LayoutInflater.from(getContext()).inflate(R.layout.bottomsheet_donate, null);
         dialog.setContentView(sheet);
 
-        // ... [기부 바텀시트 UI 요소 초기화 및 리스너 설정] (이전 코드와 동일하게 처리) ...
         TextView txtPointInfo = sheet.findViewById(R.id.txt_donate_point_info);
-        TextView chip100 = sheet.findViewById(R.id.chip_point_100);
+        TextView txtMessage = sheet.findViewById(R.id.txt_donate_message);
         Button btnDonateConfirm = sheet.findViewById(R.id.btn_donate_confirm);
-        // ... (나머지 칩 및 단체 뷰 초기화)
 
-        if (txtPointInfo != null) txtPointInfo.setText("보유 포인트: " + currentPoint + "P");
+        // 포인트 칩
+        TextView chip100 = sheet.findViewById(R.id.chip_point_100);
+        TextView chip300 = sheet.findViewById(R.id.chip_point_300);
+        TextView chip500 = sheet.findViewById(R.id.chip_point_500);
+        TextView chip1000 = sheet.findViewById(R.id.chip_point_1000);
+        TextView[] chips = {chip100, chip300, chip500, chip1000};
+
+        // 단체 카드
+        LinearLayout cardOrg1 = sheet.findViewById(R.id.card_org_1);
+        LinearLayout cardOrg2 = sheet.findViewById(R.id.card_org_2);
+        LinearLayout cardOrg3 = sheet.findViewById(R.id.card_org_3);
+        LinearLayout[] orgCards = {cardOrg1, cardOrg2, cardOrg3};
+
+        if (txtPointInfo != null)
+            txtPointInfo.setText(String.format(Locale.getDefault(), "보유 포인트: %,d P", currentPoint));
 
         final String[] selectedOrg = {null};
         final int[] selectedPoint = {0};
 
-        // ... (단체 및 포인트 칩 클릭 리스너 로직 유지) ...
+        // 1. 단체 선택 리스너
+        View.OnClickListener orgClickListener = v -> {
+            if (getContext() == null) return;
+            resetOrgCardBackground(orgCards);
+            v.setBackgroundResource(R.drawable.bg_button_primary_dark);
 
-        // 기부 버튼 (Firebase 연동 부분)
+            String orgName = "";
+            if (v.getId() == R.id.card_org_1) orgName = "청소년 마음건강센터";
+            else if (v.getId() == R.id.card_org_2) orgName = "청년 멘탈케어";
+            else if (v.getId() == R.id.card_org_3) orgName = "희망의 심리학";
+
+            selectedOrg[0] = orgName;
+
+            if (txtMessage != null) txtMessage.setText("기부 단체와 포인트를 선택해 주세요");
+        };
+
+        for (LinearLayout card : orgCards) {
+            if (card != null) card.setOnClickListener(orgClickListener);
+        }
+
+        // 2. 포인트 선택 리스너
+        View.OnClickListener pointClickListener = v -> {
+            if (getContext() == null) return;
+
+            resetPointChips(chips);
+            TextView tv = (TextView) v;
+            tv.setBackgroundResource(R.drawable.bg_chip_solid_purple);
+            tv.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+
+            try {
+                selectedPoint[0] = Integer.parseInt(tv.getText().toString().replace("P", "").trim());
+            } catch (NumberFormatException e) {
+                selectedPoint[0] = 0;
+            }
+
+            if (txtMessage != null) txtMessage.setText("기부 단체와 포인트를 선택해 주세요");
+        };
+
+        for (TextView chip : chips) {
+            if (chip != null) chip.setOnClickListener(pointClickListener);
+        }
+
+        // 3. 기부 버튼 (Firebase 연동)
         if (btnDonateConfirm != null) {
             btnDonateConfirm.setOnClickListener(v -> {
-                if (selectedOrg[0] == null || selectedPoint[0] == 0) {
-                    // ... (에러 메시지) ...
+                if (selectedOrg[0] == null) {
+                    if (txtMessage != null) txtMessage.setText("기부 단체를 선택해 주세요.");
                     return;
                 }
-
+                if (selectedPoint[0] == 0) {
+                    if (txtMessage != null) txtMessage.setText("기부 포인트를 선택해 주세요.");
+                    return;
+                }
                 if (selectedPoint[0] > currentPoint) {
                     Toast.makeText(getContext(), "포인트가 부족합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Firebase 기부 로직 호출
                 processDonation(selectedOrg[0], selectedPoint[0], dialog);
             });
         }
@@ -405,7 +480,7 @@ public class MyPageFragment extends Fragment {
         dialog.show();
     }
 
-    /** 기부 처리: 포인트 차감 및 기록 저장 */
+    // 기부 처리: 포인트 차감 및 기록 저장
     private void processDonation(String organization, int points, BottomSheetDialog dialog) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null || getContext() == null) return;
@@ -413,7 +488,7 @@ public class MyPageFragment extends Fragment {
         DatabaseReference pointRef = FirebaseDatabase.getInstance()
                 .getReference("users").child(user.getUid()).child(DB_ROOT_USER_POINTS);
 
-        // 1. 포인트 차감 트랜잭션 (안전한 차감을 위해 트랜잭션 사용 권장)
+        // 1. 포인트 차감 트랜잭션
         pointRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -421,7 +496,6 @@ public class MyPageFragment extends Fragment {
                 long newPoints = (currentPoints != null ? currentPoints : 0) - points;
 
                 if (newPoints < 0) {
-                    // 이중 체크: 잔액 부족
                     Toast.makeText(getContext(), "포인트가 부족하여 기부에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -432,6 +506,10 @@ public class MyPageFragment extends Fragment {
                         // 3. 기부 기록 저장
                         saveDonationRecord(user.getUid(), organization, points);
                         Toast.makeText(getContext(), organization + "에 " + points + "P 를 기부했어요 💜", Toast.LENGTH_LONG).show();
+
+                        // 기부 성공 후 내역을 다시 로드하여 UI 갱신 (마이페이지 하단 내역 갱신)
+                        loadDonationHistory(user.getUid());
+
                         dialog.dismiss();
                     } else {
                         Toast.makeText(getContext(), "기부 처리 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
@@ -446,18 +524,32 @@ public class MyPageFragment extends Fragment {
         });
     }
 
-    /** 기부 기록 저장 */
+    // 기부 기록 저장
     private void saveDonationRecord(String uid, String organization, int points) {
         DatabaseReference historyRef = FirebaseDatabase.getInstance()
                 .getReference("users").child(uid).child(DB_ROOT_DONATION_HISTORY)
-                .child(String.valueOf(System.currentTimeMillis())); // 타임스탬프를 키로 사용
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
-        String date = sdf.format(Calendar.getInstance().getTime());
+                .child(String.valueOf(System.currentTimeMillis()));
 
         historyRef.child("organization").setValue(organization);
         historyRef.child("points").setValue(points);
         historyRef.child("timestamp").setValue(System.currentTimeMillis());
-        // TODO: impact_point DB도 업데이트해야 합니다.
+    }
+
+    // 기부 보조 메서드
+    private void resetOrgCardBackground(LinearLayout[] cards) {
+        for (LinearLayout card : cards) {
+            if (card != null) card.setBackgroundResource(R.drawable.bg_card_solid_lavender);
+        }
+    }
+
+    private void resetPointChips(TextView[] chips) {
+        if (getContext() == null) return;
+        int defaultTextColor = ContextCompat.getColor(requireContext(), R.color.poseme_purple_dark);
+
+        for (TextView chip : chips) {
+            if (chip == null) continue;
+            chip.setBackgroundResource(R.drawable.bg_chip_solid_lavender);
+            chip.setTextColor(defaultTextColor);
+        }
     }
 }
