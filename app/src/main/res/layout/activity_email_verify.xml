@@ -50,6 +50,7 @@
                 android:text="이메일 인증 번호 받기"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
+                android:enabled="false"
                 android:background="@drawable/bg_button_primary" />
 
             <!-- 인증 번호 -->
@@ -89,6 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
+                    android:enabled="false"
                     android:text="03:00"
                     android:textSize="12sp"
                     android:textColor="@color/poseme_text_sub" />

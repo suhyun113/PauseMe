@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SignupInfoActivity extends AppCompatActivity {
+public class SignUpInfoActivity extends AppCompatActivity {
 
     private EditText edtUserId, edtNickname, edtPassword, edtPasswordConfirm;
     private TextView txtIdStatus, txtPwStatus;
@@ -110,7 +110,7 @@ public class SignupInfoActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(SignupInfoActivity.this,
+                Toast.makeText(SignUpInfoActivity.this,
                         "아이디 확인 중 오류가 발생했어요",
                         Toast.LENGTH_SHORT).show();
             }
@@ -175,18 +175,18 @@ public class SignupInfoActivity extends AppCompatActivity {
                                     // 아이디 -> 이메일 매핑
                                     idRef.setValue(email).addOnCompleteListener(t2 -> {
                                         if (t2.isSuccessful()) {
-                                            Toast.makeText(SignupInfoActivity.this,
+                                            Toast.makeText(SignUpInfoActivity.this,
                                                     "회원가입이 완료되었어요. 로그인해 주세요.",
                                                     Toast.LENGTH_LONG).show();
                                             finish();  // Login 화면으로 돌아가기
                                         } else {
-                                            Toast.makeText(SignupInfoActivity.this,
+                                            Toast.makeText(SignUpInfoActivity.this,
                                                     "계정 저장 중 오류가 발생했어요.",
                                                     Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 } else {
-                                    Toast.makeText(SignupInfoActivity.this,
+                                    Toast.makeText(SignUpInfoActivity.this,
                                             "계정 저장 중 오류가 발생했어요.",
                                             Toast.LENGTH_SHORT).show();
                                 }
@@ -197,7 +197,7 @@ public class SignupInfoActivity extends AppCompatActivity {
                             if (task.getException() != null) {
                                 msg = task.getException().getMessage();
                             }
-                            Toast.makeText(SignupInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
