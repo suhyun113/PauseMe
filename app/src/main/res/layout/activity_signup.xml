@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/poseme_bg_soft">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/view_topbar_back_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="이메일"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/poseme_text_dark"/>
+
+            <EditText
+                android:id="@+id/edt_email"
+                android:hint="이메일을 입력하세요"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_default"
+                android:paddingLeft="16dp"
+                android:inputType="textEmailAddress"/>
+
+            <TextView
+                android:text="비밀번호"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/poseme_text_dark"/>
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:hint="8자 이상 입력"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_default"
+                android:paddingLeft="16dp"
+                android:inputType="textPassword"/>
+
+            <Button
+                android:id="@+id/btn_signup"
+                android:text="회원가입"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/bg_button_primary_dark"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

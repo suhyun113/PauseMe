@@ -19,7 +19,7 @@
             android:name=".EmailVerifyActivity"
             android:exported="false"/>
         <activity
-            android:name=".SignUpInfoActivity"
+            android:name=".SignUpActivity"
             android:exported="false"/>
         <activity
             android:name=".HomeActivity"
